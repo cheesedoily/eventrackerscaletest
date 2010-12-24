@@ -1,0 +1,12 @@
+application: eventrackerscaletest
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /event/.*
+  script: event/main.py
+
+- url: /log/.*
+  script: async/main.py  
+  
