@@ -43,15 +43,28 @@ class EventOne(webapp.RequestHandler):
             imp_id = request_id + ":" + str(dim_one_level_one)
             logging_params.update(dim1l1=dim_one_level_one,imp=imp_id)
             
+        
+        deadline = self.request.get("deadline")
+        deadline = float(deadline) if deadline else None    
+        rpc = urlfetch.create_rpc(deadline=deadline) 
         data = urllib.urlencode(logging_params)
         url = "http://eventrackerscaletest.appspot.com/log/one"
-        logging.info("URL: %s"%(url+"?"+data))
-        response = urlfetch.fetch(url+"?"+data)
-        html = response.content
+        logging.info("URL: %s with deadline: %s"%(url+"?"+data,deadline))
+        urlfetch.make_fetch_call(rpc,url+"?"+data)
 
         name1 = os.environ['SERVER_NAME']
         name2 = namespace_manager.google_apps_namespace()
         logging.info("server_name: %s \nnamespace: %s"%(name1,name2))
+
+        try:
+            result = rpc.get_result()
+            if result.status_code == 200:
+                html = result.content
+        except urlfetch.DownloadError:
+            html = None
+            
+        
+
 
         self.response.out.write('<html><head/><body><b>Hello, webapp World! %s %s %s %s <br/> %s <br/> %s </b></body></html>'%(request_id,dim_two_level_one,uid,t,logging_params, html))
         

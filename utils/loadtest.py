@@ -50,7 +50,7 @@ def threadproc():
     while not quitevent.is_set():
         try:
             # HTTP requests to exercise the server go here
-            # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             import random # random uuid
             url = "http://eventrackerscaletest.appspot.com/event/one?id=asdf&uid=asdf1234"
             resp, content = h.request(url)

@@ -1,9 +1,12 @@
+import logging
+
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 class LogEventOne(webapp.RequestHandler):
     def get(self):
         # THIS IS WHERE ALL THE HEAVY LIFTING SHOULD BE DONE
+        logging.info("I AM LOGGING")
         self.response.out.write('I AM LOGGING')
         
 class LogEventThree(webapp.RequestHandler):
