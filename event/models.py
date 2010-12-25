@@ -1,25 +1,27 @@
 import logging
 
 from google.appengine.ext import db
-from google.appengine.ext.db import polymodel
-from account.models import Account
+
+
 
 # campaign
-class DimensionOneLevelOne(db.Model):
-    pass
+class DimensionOneLevelThree(db.Model):
+    @classmethod
+    def key_from_key_name(cls,key_name):
+        return db.Key.from_path(cls.kind(),key_name)
     
 # adgroup    
-class DimensionOneLevelTwo(db.Model):
-    pass
-
+class DimensionOneLevelTwo(DimensionOneLevelThree):
+    level_above = db.ReferenceProperty(DimensionOneLevelThree)
+    
 # creative
-class DimensionOneLevelThree(db.Model):
+class DimensionOneLevelOne(DimensionOneLevelThree):
+    level_above = db.ReferenceProperty(DimensionOneLevelTwo)
+    
+# app
+class DimentionTwoLevelTwo(DimensionOneLevelThree):
     pass
     
-# application
-class DimentionTwoLevelOne(db.Model):
-    pass
-
 # adunit (slot)
-class DimentionTwoLevelTwo(db.Model):
-    pass
+class DimentionTwoLevelOne(DimensionOneLevelThree):
+    level_above = db.ReferenceProperty(DimentionTwoLevelTwo)

@@ -1,21 +1,17 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
-class EventOne(webapp.RequestHandler):
+class LogEventOne(webapp.RequestHandler):
     def get(self):
+        # THIS IS WHERE ALL THE HEAVY LIFTING SHOULD BE DONE
         self.response.out.write('I AM LOGGING')
         
-
-class EventTwo(webapp.RequestHandler):
+class LogEventThree(webapp.RequestHandler):
     def get(self):
-        pass    
-        
-class EventThree(webapp.RequestHandler):
-    pass        
+        pass            
 
-application = webapp.WSGIApplication([('/log/one', EventOne),
-                                      ('/log/two', EventTwo),
-                                      ('/log/three',EventThree), 
+application = webapp.WSGIApplication([('/log/one', LogEventOne),
+                                      ('/log/three',LogEventThree), 
                                      ],
                                      debug=True)
 
