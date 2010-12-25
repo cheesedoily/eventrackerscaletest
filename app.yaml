@@ -15,3 +15,5 @@ handlers:
 - url: /log/.*
   script: async/main.py  
   
+- url: /counter/.*
+  script: counters/main.py 
