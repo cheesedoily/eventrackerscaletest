@@ -49,8 +49,8 @@ class EventOne(webapp.RequestHandler):
             deadline = float(deadline) if deadline else None    
             rpc = urlfetch.create_rpc(deadline=deadline) 
             data = urllib.urlencode(logging_params)
-            # url = "http://eventrackerscaletest.appspot.com/log/one"
-            url = "http://localhost:8081/log/one"
+            url = "http://eventrackerscaletest.appspot.com/log/one"
+            # url = "http://localhost:8081/log/one"
             logging.info("URL: %s with deadline: %s"%(url+"?"+data,deadline))
             urlfetch.make_fetch_call(rpc,url+"?"+data)
 
