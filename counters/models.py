@@ -1,8 +1,9 @@
 from google.appengine.ext import db
 
 class Counter(db.Model):
-    obj = ReferenceProperty() # generic reference
-    count_one = db.IntergerProperty() 
-    count_two = db.IntergerProperty()
-    count_three = db.IntergerProperty()
-    count_four = db.IntergerProperty()
+    dimension_one = db.ReferenceProperty(collection_name="dim_one_counters") # generic reference
+    dimension_two = db.ReferenceProperty(collection_name="dim_two_counters") # generic reference
+    count_one = db.IntegerProperty() 
+    count_two = db.IntegerProperty()
+    count_three = db.IntegerProperty()
+    count_four = db.IntegerProperty()

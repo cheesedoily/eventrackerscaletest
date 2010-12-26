@@ -16,4 +16,8 @@ handlers:
   script: async/main.py  
   
 - url: /counter/.*
-  script: counters/main.py 
+  script: counters/main.py
+  
+- url: /_ah/queue/.*
+  script: async/taskprocess.py
+  login: admin   
