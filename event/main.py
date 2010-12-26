@@ -22,8 +22,7 @@ class EventOne(webapp.RequestHandler):
         dim_two_level_one = self.request.get("id")
         # v1 = self.response.get("k1")
         # v2 = self.response.get("k1")
-        # TODO: get vhost
-        # vhost = asdf
+
         logging.info("instance_id: %s"%instance_id)
         t = time.time()
         
@@ -85,10 +84,12 @@ application = webapp.WSGIApplication([('/event/one', EventOne),
 def main():
     # attaches a process id to the instance
     # TODO: make sure this is unique, probably with a memcache list
-    pid = globals().get("instance_id",None)
-    if not pid:
-        globals()["instance_id"] = random.randint(1,1e6) # one in a million
     run_wsgi_app(application)
 
 if __name__ == "__main__":
     main()
+    
+pid = globals().get("instance_id",None)
+if not pid:
+    globals()["instance_id"] = random.randint(1,1e6) # one in a million
+    

@@ -29,10 +29,10 @@ def log(**kwargs):
     # The key should be based on a incrementing the index for this instance
     # k<instance_id><index>
     # the index value can either be stored as a global for the instance 
-    # or as a entry in memecache with key k<instance>
+    # or as a entry in memecache with key k<instance_id>
     
     # After N writes to memecache we should sent out a Task like this
-    t = Task(params={'start':0,'length':100, 'instance_id':1234},method='GET')
+    t = Task(params={'start':0,'length':100, 'instance_id':instance_id},method='GET')
     t.add('bulk-log-processor')
     
 
@@ -43,12 +43,14 @@ application = webapp.WSGIApplication([('/log/one', LogEventOne),
 
 def main():
     # attaches a process id to the instance
-    # TODO: make sure this is unique, probably with a memcache list or counter
-    pid = globals().get("instance_id",None)
-    if not pid:
-        globals()["instance_id"] = random.randint(1,1e6) # one in a million
-    
+    # TODO: make sure this is unique, probably with a memcache list or counter    
     run_wsgi_app(application)
 
 if __name__ == "__main__":
     main()
+    
+    
+pid = globals().get("instance_id",None)
+if not pid:
+    globals()["instance_id"] = random.randint(1,1e6) # one in a million
+    
