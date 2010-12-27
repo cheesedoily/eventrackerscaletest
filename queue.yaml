@@ -1,4 +1,4 @@
 queue:
 - name: bulk-log-processor
-  rate: 10/s
+  rate: 100/s
   bucket_size: 100
