@@ -51,7 +51,7 @@ def threadproc():
         try:
             # HTTP requests to exercise the server go here
             # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!            
-            url = "http://eventrackerscaletest.appspot.com/event/one"
+            url = "http://eventrackerscaletest.appspot.com/event/one?deadline=.008"
             resp, content = h.request(url)
             # print url  
             if resp.status != 200:
