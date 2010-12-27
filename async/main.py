@@ -16,7 +16,6 @@ class LogEventOne(webapp.RequestHandler):
         log(**params)
         self.response.out.write('I AM LOGGING')
         
-        
 class LogEventThree(webapp.RequestHandler):
     def get(self):
         pass
@@ -34,7 +33,6 @@ def log(**kwargs):
     # After N writes to memecache we should sent out a Task like this
     t = Task(params={'start':0,'length':100, 'instance_id':instance_id},method='GET')
     t.add('bulk-log-processor')
-    
 
 application = webapp.WSGIApplication([('/log/one', LogEventOne),
                                       ('/log/three',LogEventThree), 
@@ -46,11 +44,10 @@ def main():
     # TODO: make sure this is unique, probably with a memcache list or counter    
     run_wsgi_app(application)
 
-if __name__ == "__main__":
-    main()
-    
-    
 pid = globals().get("instance_id",None)
 if not pid:
     globals()["instance_id"] = random.randint(1,1e6) # one in a million
-    
+
+
+if __name__ == "__main__":
+    main()    

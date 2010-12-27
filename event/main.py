@@ -49,18 +49,19 @@ class EventOne(webapp.RequestHandler):
             rpc = urlfetch.create_rpc(deadline=deadline) 
             data = urllib.urlencode(logging_params)
             url = "http://eventrackerscaletest.appspot.com/log/one"
-            # url = "http://localhost:8081/log/one"
+            url = "http://localhost:8081/log/one"
             logging.info("URL: %s with deadline: %s"%(url+"?"+data,deadline))
             urlfetch.make_fetch_call(rpc,url+"?"+data)
 
-            try:
-                result = rpc.get_result()
-                if result.status_code == 200:
-                    html = result.content
-                else:
-                    html = "ERROR"    
-            except urlfetch.DownloadError:
-                html = None
+            # try:
+            #     result = rpc.get_result()
+            #     if result.status_code == 200:
+            #         html = result.content
+            #     else:
+            #         html = "ERROR"    
+            # except urlfetch.DownloadError:
+            #     html = None
+            html = "WHO CARES"
         else:
             log(**logging_params)        
             html = "LOGGED"
@@ -86,10 +87,10 @@ def main():
     # TODO: make sure this is unique, probably with a memcache list
     run_wsgi_app(application)
 
-if __name__ == "__main__":
-    main()
-    
 pid = globals().get("instance_id",None)
 if not pid:
     globals()["instance_id"] = random.randint(1,1e6) # one in a million
+
+if __name__ == "__main__":
+    main()
     
