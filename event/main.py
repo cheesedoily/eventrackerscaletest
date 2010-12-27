@@ -13,7 +13,7 @@ from google.appengine.api import urlfetch
 from google.appengine.api import namespace_manager
 
 
-from event.models import DimensionOneLevelOne
+from event.models import DimensionOneLevelOne, DimensionTwoLevelOne
 from async.main import log
 
 class EventOne(webapp.RequestHandler):
@@ -27,7 +27,7 @@ class EventOne(webapp.RequestHandler):
         if not uid:
             uid = uuid.uuid4()
         if not dim_two_level_one:
-            dim_two_level_one = DimentionTwoLevelOne.key_from_key_name("k:%02d:%02d"%(random.randint(0,9),random.randint(0,9)))
+            dim_two_level_one = DimensionTwoLevelOne.key_from_key_name("k:%02d:%02d"%(random.randint(0,9),random.randint(0,9)))
         
         # v1 = self.response.get("k1")
         # v2 = self.response.get("k1")
@@ -57,8 +57,8 @@ class EventOne(webapp.RequestHandler):
             deadline = float(deadline) if deadline else None    
             rpc = urlfetch.create_rpc(deadline=deadline) 
             data = urllib.urlencode(logging_params)
-            url = "http://eventrackerscaletest.appspot.com/log/one"
-            # url = "http://localhost:8081/log/one"
+            # url = "http://eventrackerscaletest.appspot.com/log/one"
+            url = "http://localhost:8081/log/one"
             logging.info("URL: %s with deadline: %s"%(url+"?"+data,deadline))
             urlfetch.make_fetch_call(rpc,url+"?"+data)
 

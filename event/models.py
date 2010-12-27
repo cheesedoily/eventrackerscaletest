@@ -13,8 +13,8 @@ class DimensionOneLevelTwo(DimensionOneLevelThree):
 class DimensionOneLevelOne(DimensionOneLevelThree):
     level_above = db.ReferenceProperty(DimensionOneLevelTwo)
     
-class DimentionTwoLevelTwo(DimensionOneLevelThree):
+class DimensionTwoLevelTwo(DimensionOneLevelThree):
     pass
     
-class DimentionTwoLevelOne(DimensionOneLevelThree):
-    level_above = db.ReferenceProperty(DimentionTwoLevelTwo)
+class DimensionTwoLevelOne(DimensionOneLevelThree):
+    level_above = db.ReferenceProperty(DimensionTwoLevelTwo)
