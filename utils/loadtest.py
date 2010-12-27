@@ -20,14 +20,33 @@ to make the requests you want load tested.
 """
 
 
+
 import httplib2
 import random
 import socket
 import time
+import uuid
+import sys
+import os
+
+sys.path.append("/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine")
+sys.path.append("/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/django")
+sys.path.append("/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webob")
+sys.path.append("/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/yaml/lib")
+sys.path.append("/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/fancy_urllib")
+sys.path.append('/'.join(os.getcwd().split("/")[:-1]))
+sys.path.append('.')
+
 from threading import Event
 from threading import Thread
 from threading import current_thread
 from urllib import urlencode
+
+from event.models import DimensionTwoLevelOne
+from event.models import db
+
+
+
 
 # Modify these values to control how the testing is done
 
@@ -51,7 +70,11 @@ def threadproc():
         try:
             # HTTP requests to exercise the server go here
             # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!            
-            url = "http://eventrackerscaletest.appspot.com/event/one?deadline=.008"
+            uid = uuid.uuid4()
+            key_name = "k:%02d:%02d"%(random.randint(0,9),random.randint(0,9))
+            dim_two_level_one = db.Key.from_path('DimensionTwoLevelOne',key_name,_app='eventrackerscaletest')
+            
+            url = "http://eventrackerscaletest.appspot.com/event/one?deadline=.008&uid=%s&id=%s"%(uid,dim_two_level_one)
             resp, content = h.request(url)
             # print url  
             if resp.status != 200:

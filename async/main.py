@@ -31,8 +31,12 @@ def log(**kwargs):
     # or as a entry in memecache with key k<instance_id>
     
     # After N writes to memecache we should sent out a Task like this
-    t = Task(params={'start':0,'length':100, 'instance_id':instance_id},method='GET')
-    t.add('bulk-log-processor')
+    global index
+    index += 1
+    logging.info("index: %s"%index)
+    if (index % 100) == 0:
+        t = Task(params={'start':index,'length':100, 'instance_id':instance_id},method='GET')
+        t.add('bulk-log-processor')
 
 application = webapp.WSGIApplication([('/log/one', LogEventOne),
                                       ('/log/three',LogEventThree), 
@@ -48,6 +52,9 @@ pid = globals().get("instance_id",None)
 if not pid:
     globals()["instance_id"] = random.randint(1,1e6) # one in a million
 
+index = globals().get("index",None)
+if not index:
+    globals()["index"] = 0
 
 if __name__ == "__main__":
     main()    
