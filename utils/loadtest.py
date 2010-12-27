@@ -50,19 +50,8 @@ def threadproc():
     while not quitevent.is_set():
         try:
             # HTTP requests to exercise the server go here
-            # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            import random 
-            import uuid
-            from event.models import DimentionTwoLevelOne
-            
-            # creates random dimensionOneLevelOne object reference
-            dim2l1_key_name = "k:%02d:%02d"%(random.randint(0,9),random.randint(0,9))
-            dim2l1 = DimentionTwoLevelOne.key_from_key_name(dim2l1_key_name)
-            
-            # creates random udid
-            uid = uuid.uuid4()
-            
-            url = "http://eventrackerscaletest.appspot.com/event/one?id=%s&uid=%s"%(dim2l1,uid)
+            # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!            
+            url = "http://eventrackerscaletest.appspot.com/event/one"
             resp, content = h.request(url)
             # print url  
             if resp.status != 200:

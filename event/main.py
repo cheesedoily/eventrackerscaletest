@@ -2,6 +2,7 @@ import random
 import time
 import os
 import logging
+import uuid
 
 import urllib
 import urllib2
@@ -18,8 +19,16 @@ from async.main import log
 class EventOne(webapp.RequestHandler):
     def get(self):
         # self.response.headers['Content-Type'] = 'text/plain'
-        uid = self.request.get("uid")
-        dim_two_level_one = self.request.get("id")
+        uid = self.request.get("uid",None)
+        dim_two_level_one = self.request.get("id",None)
+        
+        ##### FOR LOAD TESTING ONLY #######
+        # generates the uid and dim2l1 id at random
+        if not uid:
+            uid = uuid.uuid4()
+        if not dim_two_level_one:
+            dim_two_level_one = DimentionTwoLevelOne.key_from_key_name("k:%02d:%02d"%(random.randint(0,9),random.randint(0,9)))
+        
         # v1 = self.response.get("k1")
         # v2 = self.response.get("k1")
 
