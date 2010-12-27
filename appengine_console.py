@@ -29,24 +29,39 @@ else:
 remote_api_stub.ConfigureRemoteDatastore(app_id, '/remote_api', auth_func, host)
 
 from event.models import DimensionOneLevelThree, DimensionOneLevelTwo, DimensionOneLevelOne
+from event.models import DimentionTwoLevelTwo, DimentionTwoLevelOne
 
-dims3 = []
-for i in range(10):
-    dim3 = DimensionOneLevelThree(key_name="k:%02d"%i)
-    dims3.append(dim3)
-    dims2 = []
-    for j in range(10):
-        dim2 = DimensionOneLevelTwo(key_name="k:%02d:%02d"%(i,j),level_above=dim3)
-        dims2.append(dim2)
-        dims1 = []
-        for k in range(10):
-            dim1 = DimensionOneLevelOne(key_name="k:%02d:%02d:%02d"%(i,j,k),level_above=dim2)
-            dims1.append(dim1)
-        print "putting dims1 for dim3:%02d dim2:%02d"%(i,j)    
-        db.put(dims1)
-    print "putting dim2 for dim3:%02d"%i    
-    db.put(dims2)
-print "putting dims3"    
-db.put(dims3)            
+# dims3 = []
+# for i in range(10):
+#     dim3 = DimensionOneLevelThree(key_name="k:%02d"%i)
+#     dims3.append(dim3)
+#     dims2 = []
+#     for j in range(10):
+#         dim2 = DimensionOneLevelTwo(key_name="k:%02d:%02d"%(i,j),level_above=dim3)
+#         dims2.append(dim2)
+#         dims1 = []
+#         for k in range(10):
+#             dim1 = DimensionOneLevelOne(key_name="k:%02d:%02d:%02d"%(i,j,k),level_above=dim2)
+#             dims1.append(dim1)
+#         print "putting dims1 for dim3:%02d dim2:%02d"%(i,j)    
+#         db.put(dims1)
+#     print "putting dim2 for dim3:%02d"%i    
+#     db.put(dims2)
+# print "putting dims3"    
+# db.put(dims3)            
 
-# code.interact('App Engine interactive console for %s' % (app_id,), None, locals())
+# dims2 = []
+# for i in range(10):
+#     dim2 = DimentionTwoLevelTwo(key_name="k:%02d"%i)
+#     dims2.append(dim2)
+#     dims1 = []
+#     for j in range(10):
+#         dim1 = DimentionTwoLevelOne(key_name="k:%02d:%02d"%(i,j),level_above=dim2)
+#         dims1.append(dim1)
+#     print "putting dim1 for dim2:%02d"%i    
+#     db.put(dims1)
+# print "putting dims2"    
+# db.put(dims2)            
+
+
+code.interact('App Engine interactive console for %s' % (app_id,), None, locals())
